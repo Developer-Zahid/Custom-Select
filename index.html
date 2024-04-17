@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Select</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous" defer></script>
+    <script src="./assets/js/script.js" defer></script>
+</head>
+<body>
+    <select data-select="custom" name="single_select" data-placeholder="Select single value">
+        <option value="" selected disabled></option>
+        <option value="Value 1">Value 1</option>
+        <option value="Value 2" selected>Value 2</option>
+        <option value="Value 3">Value 3</option>
+        <option value="Value 4">Value 4</option>
+        <option value="Value 5">Value 5</option>
+        <option value="Value 6">Value 6</option>
+        <option value="Value 7">Value 7</option>
+        <option value="Value 8">Value 8</option>
+        <option value="Value 9">Value 9</option>
+        <option value="Value 10">Value 10</option>
+        <option value="Value 11">Value 11</option>
+    </select>
+    <select data-select="custom" name="multiple_select[]" multiple data-placeholder="Select multiple options">
+        <option value="" selected disabled></option>
+        <option value="Option 1">Option 1</option>
+        <option value="Option 2" selected>Option 2</option>
+        <option value="Option 3">Option 3</option>
+        <option value="Option 4">Option 4</option>
+        <option value="Option 5">Option 5</option>
+        <option value="Option 6">Option 6</option>
+        <option value="Option 7">Option 7</option>
+        <option value="Option 8">Option 8</option>
+        <option value="Option 9">Option 9</option>
+        <option value="Option 10" selected>Option 10</option>
+        <option value="Option 11">Option 11</option>
+    </select>
+
+    <template>
+        <div data-select="wrapper" class="custom-select-wrapper">
+            <button type="button" class="custom-select__output" data-select="output" data-select-show="true">
+                <div class="custom-select__output__placeholder">Placeholder Text</div>
+            </button>
+            <div class="custom-select__dropdown" data-select="dropdown">
+                <div class="custom-select__dropdown__head">
+                    <input type="search" data-select-option="search" class="custom-select__dropdown__head__input" placeholder="Search">
+                </div>
+                <div class="custom-select__dropdown__body">
+                    <div class="custom-select__dropdown__list" data-select-option="list">
+                        <label class="custom-select__dropdown__item" data-select-option="item">
+                            <input data-select="fake-option" type="checkbox" name="select[]" value="Value 1" class="custom-select__dropdown__item__input">
+                            <div class="custom-select__dropdown__item__option"><span data-select-option="value">Value 1</span></div>
+                        </label>
+                        <div class="custom-select__dropdown__item custom-select__dropdown__item--empty" data-select-option="empty">No result found</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</body>
+</html>

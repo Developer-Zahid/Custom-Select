@@ -1,0 +1,192 @@
+:root{
+    --color-text: #222222;
+    --color-primary-rgb: 99, 211, 107;
+    --color-border: #cccccc;
+    --font-primary: "Poppins", sans-serif;
+}
+
+*,
+*::before,
+*::after
+{
+    box-sizing: border-box;
+}
+*{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+body{
+    color: var(--color-text);
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    min-height: 100svh;
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-style: normal;
+    padding-inline: 15px;
+}
+
+[data-select="custom"]{
+    width: 0;
+    height: 0;
+    border: 0;
+    visibility: hidden;
+    position: absolute;
+    opacity: 0;
+    user-select: none;
+    pointer-events: none;
+}
+
+.custom-select{
+    &-wrapper{
+        --_border-radius: 0.5rem;
+        position: relative;
+        isolation: isolate;
+        width: 100%;
+        max-width: 18rem;
+    }
+
+    &__output{
+        --_arrow-size: 18px;
+        --_padding-inline: 0.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 100%;
+        font-family: inherit;
+        font-weight: inherit;
+        text-align: left;
+        border: 2px solid rgb(var(--color-primary-rgb));
+        border-radius: var(--_border-radius);
+        background-color: transparent;
+        cursor: pointer;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' width='16' height='16' x='0' y='0' viewBox='0 0 24 24'%3E%3Cpath d='M12 22c-.3 0-.5-.1-.7-.3l-5-5c-.4-.4-.4-1 0-1.4s1-.4 1.4 0l4.3 4.3 4.3-4.3c.4-.4 1-.4 1.4 0s.4 1 0 1.4l-5 5c-.2.2-.4.3-.7.3zM7 9c-.3 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l5-5c.4-.4 1-.4 1.4 0l5 5c.4.4.4 1 0 1.4s-1 .4-1.4 0L12 4.4 7.7 8.7c-.2.2-.4.3-.7.3z' fill='%23222222'%3E%3C/path%3E%3C/svg%3E");
+        background-size: var(--_arrow-size);
+        background-repeat: no-repeat;
+        background-position: calc(100% - var(--_padding-inline)) center;
+        padding: 0.8rem var(--_padding-inline);
+        padding-right: calc(var(--_padding-inline) + var(--_arrow-size));
+    }
+
+    &__dropdown{
+        --_padding-block: 0.5rem;
+        --_padding-inline: 1rem;
+        --_dropdown-top-gap: 0.8rem;
+        position: absolute;
+        z-index: 9;
+        top: calc(100% + var(--_dropdown-top-gap));
+        border: 1px solid var(--color-border);
+        border-radius: var(--_border-radius);
+        width: 100%;
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+        transition: all 300ms cubic-bezier(0.22, 1, 0.36, 1);
+
+        &__head{
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: var(--_padding-block) var(--_padding-inline);
+
+            &::before{
+                flex-shrink: 0;
+                content: '';
+                width: 1.2rem;
+                height: 1.2rem;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' fill='%2363d36b' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0'/%3E%3C/svg%3E");
+            }
+
+            &__input{
+                color: inherit;
+                font: inherit;
+                width: 100%;
+                border: 0;
+
+                &::placeholder{
+                    opacity: 1;
+                    color: var(--color-border);
+                }
+            }
+        }
+
+        &__body{
+            max-height: 140px;
+            overflow: auto;
+        }
+
+        &__list{
+            display: grid;
+        }
+
+        &__item{
+            position: relative;
+            border-top: 1px solid #f1f1f1f1;
+
+            &--empty{
+                font-size: 80%;
+                text-align: center;
+                color: #fb4b4b;
+                padding: 10px;
+                display: none;
+            }
+
+            &__input{
+                position: absolute;
+                opacity: 0;
+            }
+
+            &__option{
+                --_input-size: 1.3rem;
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+                cursor: pointer;
+                padding: var(--_padding-block) var(--_padding-inline);
+                transition: background-color 100ms ease-in;
+
+                &::before{
+                    flex-shrink: 0;
+                    content: '';
+                    width: var(--_input-size);
+                    height: var(--_input-size);
+                    border: 1px solid var(--color-border);
+                    border-radius: 5px;
+                    background-size: contain;
+                    transition: all 100ms ease-in;
+                }
+            }
+
+            &:active{
+                .custom-select__dropdown__item__option{
+                    background-color: rgba(var(--color-primary-rgb), 0.1);
+                }
+            }
+            @media (hover:hover) {
+                &:hover,
+                &__input:focus-visible ~
+                {
+                    .custom-select__dropdown__item__option{
+                        background-color: rgba(var(--color-primary-rgb), 0.1);
+                    }
+                }
+            }
+            
+            &__input:checked ~
+            {
+                .custom-select__dropdown__item__option{
+                    &::before{
+                        border-color: rgb(var(--color-primary-rgb));
+                        background-color: rgb(var(--color-primary-rgb));
+                        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23ffffff' class='bi bi-check' viewBox='0 0 16 16'%3E%3Cpath d='M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z'/%3E%3C/svg%3E");
+                    }
+                }
+            }
+        }
+    }
+}
+
+[data-select-show="true"] + [data-select="dropdown"]{
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
